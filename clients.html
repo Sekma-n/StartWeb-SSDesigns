@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clients — S Designs</title>
+    <style>
+        /* ---------- RESET & BASE ---------- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #1a56db;
+            --primary-dark: #1e429f;
+            --dark: #111827;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-600: #4b5563;
+            --gray-800: #1f2937;
+            --white: #ffffff;
+            --radius: 12px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            color: var(--dark);
+            background: var(--white);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        img { max-width: 100%; display: block; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        .container { max-width: 1180px; margin: 0 auto; padding: 0 1.5rem; }
+
+        /* ---------- TYPOGRAPHY ---------- */
+        h1, h2, h3, h4 { font-weight: 600; line-height: 1.2; letter-spacing: -0.02em; }
+        h1 { font-size: clamp(2.4rem, 5vw, 3.8rem); }
+        h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); margin-bottom: 1rem; }
+        h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+
+        .section-label {
+            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em;
+            font-weight: 600; color: var(--primary); margin-bottom: 0.75rem;
+        }
+
+        .section-sub {
+            color: var(--gray-600); font-size: 1.1rem;
+            max-width: 60ch; margin-bottom: 2rem;
+        }
+
+        /* ---------- BUTTONS ---------- */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+            padding: 0.8rem 1.6rem; border-radius: 8px; font-weight: 500; font-size: 0.95rem;
+            transition: all 0.2s ease; cursor: pointer; border: 1px solid transparent;
+        }
+        .btn-primary { background: var(--primary); color: var(--white); }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-outline { background: transparent; border-color: var(--gray-200); color: var(--dark); }
+        .btn-outline:hover { background: var(--gray-50); border-color: var(--gray-600); }
+
+        /* ---------- HEADER ---------- */
+        header {
+            position: sticky; top: 0; background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px); border-bottom: 1px solid var(--gray-200); z-index: 100;
+        }
+
+        .header-inner {
+            display: flex; align-items: center; justify-content: space-between; height: 72px;
+        }
+
+        .logo { display: inline-flex; align-items: center; }
+        .logo img { height: 48px; width: auto; display: block; }
+
+        nav ul { display: flex; gap: 2rem; align-items: center; }
+        nav a {
+            font-size: 0.95rem; font-weight: 500; color: var(--gray-600); transition: color 0.2s;
+        }
+        nav a:hover { color: var(--primary); }
+        nav a.active { color: var(--primary); font-weight: 600; }
+
+        .header-cta { display: flex; gap: 0.75rem; align-items: center; }
+
+        .menu-toggle {
+            display: none; background: none; border: none; font-size: 1.5rem;
+            cursor: pointer; color: var(--dark);
+        }
+
+        /* ---------- PAGE HEADER ---------- */
+        .page-header {
+            padding: 5rem 0 3.5rem;
+            background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);
+            border-bottom: 1px solid var(--gray-200);
+            text-align: center;
+        }
+        .page-header .section-label { display: inline-block; }
+        .page-header h1 { max-width: 22ch; margin: 0.5rem auto 1rem; }
+        .page-header p {
+            color: var(--gray-600); font-size: 1.15rem;
+            max-width: 58ch; margin: 0 auto;
+        }
+
+        /* ---------- SECTIONS ---------- */
+        .section { padding: 5rem 0; }
+        .section-alt {
+            padding: 5rem 0;
+            background: var(--gray-50);
+            border-top: 1px solid var(--gray-200);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        /* ---------- LOGO GRID ---------- */
+        .logo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+        .logo-tile {
+            display: flex; align-items: center; justify-content: center;
+            height: 110px; border: 1px solid var(--gray-200); border-radius: var(--radius);
+            background: var(--white); color: var(--gray-600);
+            font-weight: 600; font-size: 1.05rem; letter-spacing: -0.01em;
+            box-shadow: var(--shadow); transition: all 0.2s ease;
+        }
+        .logo-tile:hover { border-color: var(--primary); color: var(--primary); }
+
+        /* ---------- GRIDS ---------- */
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+
+        /* ---------- TESTIMONIAL CARDS ---------- */
+        .testimonial-card {
+            padding: 2rem; border: 1px solid var(--gray-200);
+            border-radius: var(--radius); background: var(--white);
+            box-shadow: var(--shadow);
+        }
+        .testimonial-card blockquote {
+            font-size: 1.05rem; color: var(--dark); margin-bottom: 1.25rem;
+            line-height: 1.6; font-style: italic;
+        }
+        .testimonial-card .author { font-size: 0.9rem; color: var(--gray-600); }
+        .testimonial-card .author strong { color: var(--dark); display: block; }
+
+        /* ---------- CASE STUDY CARDS ---------- */
+        .case-card {
+            border: 1px solid var(--gray-200); border-radius: var(--radius);
+            overflow: hidden; background: var(--white); box-shadow: var(--shadow);
+            transition: all 0.2s ease;
+        }
+        .case-card:hover {
+            box-shadow: var(--shadow-lg); transform: translateY(-2px);
+            border-color: var(--primary);
+        }
+        .case-card .case-body { padding: 1.75rem; }
+        .case-card .case-tag {
+            display: inline-block; font-size: 0.75rem; text-transform: uppercase;
+            letter-spacing: 0.08em; font-weight: 600; color: var(--primary); margin-bottom: 0.75rem;
+        }
+        .case-card h3 { margin-bottom: 0.5rem; }
+        .case-card p { color: var(--gray-600); font-size: 0.95rem; }
+
+        /* ---------- CTA ---------- */
+        .cta {
+            padding: 5rem 0; background: var(--primary);
+            color: var(--white); text-align: center;
+        }
+        .cta h2 { color: var(--white); margin-bottom: 1rem; }
+        .cta p {
+            color: rgba(255, 255, 255, 0.85); max-width: 50ch;
+            margin: 0 auto 2rem; font-size: 1.1rem;
+        }
+        .cta .btn { background: var(--white); color: var(--primary); }
+        .cta .btn:hover { background: var(--gray-100); }
+
+        /* ---------- FOOTER ---------- */
+        footer { background: var(--dark); color: #9ca3af; padding: 4rem 0 2rem; font-size: 0.9rem; }
+        .footer-grid {
+            display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 2rem; margin-bottom: 3rem;
+        }
+        .footer-brand .logo { display: inline-block; margin-bottom: 1rem; }
+        .footer-brand .logo img { height: 48px; width: auto; display: block; }
+        .footer-brand p { max-width: 30ch; line-height: 1.7; }
+        .footer-col h4 {
+            color: var(--white); font-size: 0.95rem; margin-bottom: 1rem;
+            text-transform: uppercase; letter-spacing: 0.05em;
+        }
+        .footer-col ul li { margin-bottom: 0.6rem; }
+        .footer-col a:hover { color: var(--white); }
+        .footer-bottom {
+            border-top: 1px solid #1f2937; padding-top: 1.5rem;
+            display: flex; justify-content: space-between; flex-wrap: wrap;
+            gap: 1rem; font-size: 0.85rem;
+        }
+
+        /* ---------- RESPONSIVE ---------- */
+        @media (max-width: 900px) {
+            .grid-3 { grid-template-columns: 1fr 1fr; }
+            .logo-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 640px) {
+            .header-inner { height: 64px; }
+            .logo img { height: 36px; }
+            .footer-brand .logo img { height: 36px; }
+
+            nav ul {
+                display: none; position: absolute; top: 64px; left: 0; right: 0;
+                background: var(--white); flex-direction: column; padding: 1.5rem;
+                gap: 1rem; border-bottom: 1px solid var(--gray-200); box-shadow: var(--shadow);
+            }
+            nav ul.open { display: flex; }
+            .menu-toggle { display: block; }
+            .header-cta .btn { display: none; }
+
+            .grid-3, .footer-grid, .logo-grid { grid-template-columns: 1fr; }
+
+            .page-header { padding: 3rem 0 2.5rem; }
+            .section, .section-alt, .cta { padding: 3rem 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="S Designs Logo">
+            </a>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="clients.html" class="active">Clients</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-cta">
+                <a href="contact.html" class="btn btn-primary">Get a quote</a>
+                <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <div class="container">
+            <div class="section-label">Selected work</div>
+            <h1>Good work leaves a useful trace.</h1>
+            <p>These clients trusted us with their most important challenges. Here’s a look at what we built together.</p>
+        </div>
+    </section>
+
+    <!-- LOGO GRID -->
+    <section class="section">
+        <div class="container">
+            <div class="section-label">Trusted by</div>
+            <h2>Teams we’ve worked with.</h2>
+            <p class="section-sub">A selection of clients across logistics, retail, technology, and professional services.</p>
+
+            <div class="logo-grid">
+                <div class="logo-tile">HORIZON</div>
+                <div class="logo-tile">NORTHWIND</div>
+                <div class="logo-tile">ATLAS CO</div>
+                <div class="logo-tile">MERIDIAN</div>
+                <div class="logo-tile">BRIGHTLINE</div>
+                <div class="logo-tile">VANTAGE</div>
+                <div class="logo-tile">SUMMIT</div>
+                <div class="logo-tile">CORE</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="section-alt">
+        <div class="container">
+            <div class="section-label">Client feedback</div>
+            <h2>What they say.</h2>
+            <p class="section-sub">Real feedback from people who’ve worked with us.</p>
+
+            <div class="grid-3">
+                <div class="testimonial-card">
+                    <blockquote>“Working with this team transformed the way we operate. Their strategic insight and dedication to results are unmatched.”</blockquote>
+                    <div class="author"><strong>Jane Smith</strong>CEO, Horizon Group</div>
+                </div>
+                <div class="testimonial-card">
+                    <blockquote>“They didn’t just hand us a plan — they stayed with us through execution. That made all the difference.”</blockquote>
+                    <div class="author"><strong>David Mokoena</strong>Operations Director, Northwind</div>
+                </div>
+                <div class="testimonial-card">
+                    <blockquote>“Clear, honest, and fast. Exactly what we needed when the pressure was on.”</blockquote>
+                    <div class="author"><strong>Amara Naidoo</strong>Founder, Brightline</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CASE STUDIES -->
+    <section class="section">
+        <div class="container">
+            <div class="section-label">Case studies</div>
+            <h2>Selected projects.</h2>
+            <p class="section-sub">A few examples of the kind of work we do — and the results it produced.</p>
+
+            <div class="grid-3">
+                <div class="case-card">
+                    <div class="case-body">
+                        <span class="case-tag">Logistics</span>
+                        <h3>Fueling growth for a regional supplier</h3>
+                        <p>Rebuilt the operating model and digital ordering flow for a bulk fuel partner — cutting order time by 40%.</p>
+                    </div>
+                </div>
+                <div class="case-card">
+                    <div class="case-body">
+                        <span class="case-tag">Retail</span>
+                        <h3>A clearer brand for a crowded market</h3>
+                        <p>Repositioned a national retail brand around a single, sharp idea — lifting qualified leads by 2.3×.</p>
+                    </div>
+                </div>
+                <div class="case-card">
+                    <div class="case-body">
+                        <span class="case-tag">Technology</span>
+                        <h3>Modernising a legacy platform</h3>
+                        <p>Migrated a 12-year-old internal system to a modern stack without a single day of downtime.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <h2>Want to be our next success story?</h2>
+            <p>Tell us what you’re trying to achieve. We’ll tell you honestly whether we can help.</p>
+            <a href="contact.html" class="btn">Start a project</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <span class="logo"><img src="logo.png" alt="S Designs Logo"></span>
+                    <p>Strategic solutions for modern businesses. We help you grow with confidence.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="clients.html">Clients</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="services.html">Consulting</a></li>
+                        <li><a href="services.html">Operations</a></li>
+                        <li><a href="services.html">Digital</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy</a></li>
+                        <li><a href="#">Terms</a></li>
+                        <li><a href="#">Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2025 S Designs. All rights reserved.</span>
+                <span>Built for performance.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const toggle = document.getElementById('menuToggle');
+        const nav = document.getElementById('navMenu');
+        if (toggle && nav) toggle.addEventListener('click', () => nav.classList.toggle('open'));
+    </script>
+</body>
+</html>
